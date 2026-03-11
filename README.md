@@ -8,4 +8,6 @@ Here you'll find a collection of my config files.
 #### zsh
 * zsh requires a symlink `ln -s ~/.config/zsh/.zshrc ~/.zshrc`
 
+### TODO
+* Need an install script to manage things like symlinks (zsh?)
 
