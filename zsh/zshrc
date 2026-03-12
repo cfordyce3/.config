@@ -1,0 +1,26 @@
+# vim bindings:
+bindkey -v
+# paru -S zsh-vi-mode
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+# git
+autoload -Uz vcs_info
+zstyle ':vcs_info:git*' formats " (%b)"
+precmd() { vcs_info }
+
+setopt prompt_subst
+PROMPT='%F{green}%3~%F{yellow}$vcs_info_msg_0_ %f%# '
+
+# aliases
+alias ls="ls --color"
+alias la="ls -a --color"
+alias ll="ls -lah --color"
+alias grep="grep --color"
+
+alias nv="$HOME/appimages/nvim-nightly.appimage"
+
+alias gpuusage="watch -n 1 nvidia-smi"
+
+function mkcd() {
+    mkdir $1 && cd $1
+}
