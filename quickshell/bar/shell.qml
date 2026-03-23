@@ -1,18 +1,49 @@
-import Quickshell
-import QtQuick
+import Quickshell // PanelWindow
+import Quickshell.Io // Text
+import QtQuick // Process
 
-PanelWindow {
-    anchors {
-        top: true
-        left: true
-        right: true
-    }
+Variants {
+    model: Quickshell.screens;
 
-    implicitHeight: 30
+    delegate: Component {
+        PanelWindow {
 
-    Text {
-        anchors.centerIn: parent
+            required property var modelData
 
-        text: "hello world"
+            screen: modelData
+
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
+
+            implicitHeight: 30
+
+            Text {
+                id: clock
+                anchors.centerIn: parent
+
+                Process {
+                    id: dateProc
+
+                    command: ["date"]
+                    running: true
+
+                    stdout: StdioCollector {
+                        onStreamFinished: clock.text = this.text
+                    }
+                }
+
+                // does this need to be inside the same text block to work?
+                Timer {
+                    interval: 1000 // ms
+                    running: true
+                    repeat: true
+
+                    onTriggered: dateProc.running = true
+                }
+            }
+        }
     }
 }

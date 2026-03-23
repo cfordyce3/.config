@@ -248,7 +248,8 @@ vim.lsp.enable({
     "zls",
     "clangd",
     "pyright",
-    "rust_analyzer"
+    "rust_analyzer",
+    "qmlls",
 })
 
 -- fix the vim global warning
