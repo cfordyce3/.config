@@ -12,10 +12,13 @@ setopt prompt_subst
 PROMPT='%F{green}%3~%F{yellow}$vcs_info_msg_0_ %f%# '
 
 # aliases
+alias sourcezsh="source ~/.zshrc"
+
 alias ls="ls --color"
 alias la="ls -a --color"
 alias ll="ls -lah --color"
 alias grep="grep --color"
+alias cat="bat"
 
 alias nv="$HOME/appimages/nvim-nightly.appimage"
 
