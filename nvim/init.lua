@@ -37,58 +37,58 @@ o.winborder = "rounded"
 
 -- yank highlight
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.hl.on_yank()
-    end,
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 -- restore cursor location
 vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function(args)
-        local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-        local line_count = vim.api.nvim_buf_line_count(args.buf)
-        if mark[1] > 0 and mark[1] <= line_count then
-            vim.api.nvim_win_set_cursor(0, mark)
-            vim.schedule(function()
-                vim.cmd("normal! zz")
-            end)
-        end
-    end,
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      vim.api.nvim_win_set_cursor(0, mark)
+      vim.schedule(function()
+        vim.cmd("normal! zz")
+      end)
+    end
+  end,
 })
 
 -- don't continue commending on newline
 vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("no_auto_commend", {}),
-    callback = function()
-        vim.opt_local.formatoptions:remove({ "c", "r", "o", })
-    end,
+  group = vim.api.nvim_create_augroup("no_auto_commend", {}),
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "c", "r", "o", })
+  end,
 })
 
 -- remove unused plugins
 local function pack_clean()
-    local active_plugins = {}
-    local unused_plugins = {}
+  local active_plugins = {}
+  local unused_plugins = {}
 
-    for _, plugin in ipairs(vim.pack.get()) do
-        active_plugins[plugin.spec.name] = plugin.active
-    end
+  for _, plugin in ipairs(vim.pack.get()) do
+    active_plugins[plugin.spec.name] = plugin.active
+  end
 
-    for _, plugin in ipairs(vim.pack.get()) do
-        if not active_plugins[plugin.spec.name] then
-            table.insert(unused_plugins, plugin.spec.name)
-        end
+  for _, plugin in ipairs(vim.pack.get()) do
+    if not active_plugins[plugin.spec.name] then
+      table.insert(unused_plugins, plugin.spec.name)
     end
+  end
 
-    if #unused_plugins == 0 then
-        print("No unused plugins.")
-        return
-    end
+  if #unused_plugins == 0 then
+    print("No unused plugins.")
+    return
+  end
 
-    local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
-    if choice == 1 then
-        vim.pack.del(unused_plugins)
-    end
+  local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
+  if choice == 1 then
+    vim.pack.del(unused_plugins)
+  end
 end
 
 -- somethin to do with autocomplete
@@ -147,21 +147,22 @@ vk.set('n', '<leader>pc', pack_clean)
 -----------------------------------------------
 
 vim.pack.add({
-    { src = "https://github.com/shaunsingh/nord.nvim" },            -- colorscheme
-    { src = "https://github.com/nvim-mini/mini.icons" },            -- icons
-    { src = "https://github.com/nvim-mini/mini.pairs" },            -- autopairs
-    { src = "https://github.com/nvim-mini/mini.snippets" },         -- snippets
-    { src = "https://github.com/nvim-mini/mini.completion" },       -- completion
-    { src = "https://github.com/nvim-lualine/lualine.nvim" },       -- lualine statusbar
-    { src = "https://github.com/stevearc/oil.nvim" },               -- oil (file browser)
-    { src = "https://github.com/nvim-lua/plenary.nvim" },           -- plenary
-    { src = "https://github.com/nvim-telescope/telescope.nvim" },   -- telescope
-    -- { src = "https://github.com/nvim-mini/mini.pick" }, -- picker window
-    { src = "https://github.com/HiPhish/rainbow-delimiters.nvim" }, -- rainbow delimiter
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, -- treesitter
-    { src = "https://github.com/neovim/nvim-lspconfig" },           -- lspconfig
-    { src = "https://github.com/mason-org/mason.nvim" },            -- mason
-    -- { src = "https://codeberg.org/ziglang/zig.vim" },               -- zig
+  -- { src = "https://github.com/shaunsingh/nord.nvim" },            -- nord colorscheme
+  { src = "https://github.com/rebelot/kanagawa.nvim" },             -- kanagawa colorscheme
+  { src = "https://github.com/nvim-mini/mini.icons" },              -- icons
+  { src = "https://github.com/nvim-mini/mini.pairs" },              -- autopairs
+  { src = "https://github.com/nvim-mini/mini.snippets" },           -- snippets
+  { src = "https://github.com/nvim-mini/mini.completion" },         -- completion
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },         -- lualine statusbar
+  { src = "https://github.com/stevearc/oil.nvim" },                 -- oil (file browser)
+  { src = "https://github.com/nvim-lua/plenary.nvim" },             -- plenary
+  { src = "https://github.com/nvim-telescope/telescope.nvim" },     -- telescope
+  -- { src = "https://github.com/nvim-mini/mini.pick" }, -- picker window
+  { src = "https://github.com/HiPhish/rainbow-delimiters.nvim" },   -- rainbow delimiter
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },   -- treesitter
+  { src = "https://github.com/neovim/nvim-lspconfig" },             -- lspconfig
+  { src = "https://github.com/mason-org/mason.nvim" },              -- mason
+  -- { src = "https://codeberg.org/ziglang/zig.vim" },               -- zig
 })
 
 -----------------------------------------------
@@ -169,16 +170,31 @@ vim.pack.add({
 -----------------------------------------------
 
 -- nord colorscheme
-vim.g.nord_contrast = true
-vim.g.nord_borders = true
-vim.g.nord_disable_background = true
-vim.g.nord_cursorline_transparent = false
-vim.g.nord_enable_sidebar_background = false
-vim.g.nord_italic = false
-vim.g.nord_uniform_diff_background = false
-vim.g.nord_bold = true
-vim.cmd("colorscheme nord")
+-- vim.g.nord_contrast = true
+-- vim.g.nord_borders = true
+-- vim.g.nord_disable_background = true
+-- vim.g.nord_cursorline_transparent = false
+-- vim.g.nord_enable_sidebar_background = false
+-- vim.g.nord_italic = false
+-- vim.g.nord_uniform_diff_background = false
+-- vim.g.nord_bold = true
+-- vim.cmd("colorscheme nord")
 -- vim.cmd(":hi statusline guibg=NONE")
+
+-- kanagawa colorscheme
+require "kanagawa".setup({
+  transparent = true,
+  colors = {
+    theme = {
+      all = {
+        ui = {
+          bg_gutter = "none"
+        }
+      }
+    }
+  }
+})
+vim.cmd("colorscheme kanagawa")
 
 -- icons
 require "mini.pairs".setup()
@@ -223,12 +239,13 @@ vk.set('n', '<leader>g', t_builtin.live_grep, opts)
 -- treesitter
 require "nvim-treesitter".setup()
 require "nvim-treesitter".install({
-    "lua",
-    "python",
-    "c",
-    "zig",
-    "rust",
-    "java",
+  "lua",
+  "python",
+  "c",
+  "zig",
+  "rust",
+  "java",
+  "odin",
 })
 
 -- lspconfig
@@ -244,23 +261,23 @@ require "mason".setup()
 -----------------------------------------------
 
 vim.lsp.enable({
-    "lua_ls",
-    "zls",
-    "clangd",
-    "pyright",
-    "rust_analyzer",
-    "qmlls",
+  "lua_ls",
+  "zls",
+  "clangd",
+  "pyright",
+  "rust_analyzer",
+  "qmlls",
 })
 
 -- fix the vim global warning
 vim.lsp.config("lua_ls", {
-    settings = {
-        Lua = {
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            }
-        }
+  settings = {
+    Lua = {
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      }
     }
+  }
 })
 
 vk.set('n', '<leader>lf', vim.lsp.buf.format)
