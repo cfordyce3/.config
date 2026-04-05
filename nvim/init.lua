@@ -2,6 +2,7 @@
 vim.wo.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
+vim.opt.colorcolumn = "100"
 vim.opt.signcolumn = "yes"
 
 vim.opt.clipboard = "unnamedplus"
@@ -53,8 +54,14 @@ vim.keymap.set('n', '<leader>Q', ':qa!<CR>', opts)
 vim.keymap.set('n', '<leader>o', ':so<CR>', opts)
 vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
 vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
+vim.keymap.set('n', '<C-o>', '<C-o>zz', opts)
+vim.keymap.set('n', '<C-i>', '<C-i>zz', opts)
 vim.keymap.set('n', '<leader>n', ':bnext<CR>', opts)
 vim.keymap.set('n', '<leader>N', ':bprev<CR>', opts)
+vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
+vim.keymap.set('n', '<C-j>', ':wincmd j<CR>', opts)
+vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', opts)
+vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
 
 -- plugins --
 local gh = function(x) return "https://github.com/" .. x end
@@ -101,6 +108,7 @@ require "nvim-treesitter".install({
   "json",
   "markdown",
   "java",
+  "c_sharp",
   "python",
   "javascript",
 })
@@ -169,6 +177,7 @@ vim.lsp.enable({
   "ols",
   "rust_analyzer",
   "qmlls",
+  "csharp-language-server"
 })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 --
@@ -186,6 +195,11 @@ require "rainbow-delimiters.setup".setup({
   },
 })
 --
+
+
+-- markdowwn-plus
+vim.pack.add({ gh("YousefHadder/markdown-plus.nvim") })
+require "markdown-plus".setup()
 
 
 -- harpoon

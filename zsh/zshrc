@@ -20,10 +20,13 @@ alias ll="ls -lah --color"
 alias grep="grep --color"
 alias cat="bat"
 
-alias nv="$HOME/appimages/nvim-nightly.appimage"
+alias nv="nvim"
+# alias nv="$HOME/appimages/nvim-nightly.appimage"
 
 alias gpuusage="watch -n 1 nvidia-smi"
 
 function mkcd() {
     mkdir $1 && cd $1
 }
+
+export PATH="$HOME/.local/bin:$HOME/.local/nvim/bin:$PATH"
