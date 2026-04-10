@@ -65,7 +65,7 @@ vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
 
 -- plugins --
 local gh = function(x) return "https://github.com/" .. x end
-local cb = function(x) return "https://codeberg.org/" .. x end
+-- local cb = function(x) return "https://codeberg.org/" .. x end
 
 -- kanagawa colorscheme
 vim.pack.add({ gh("rebelot/kanagawa.nvim") })
@@ -113,7 +113,7 @@ require "nvim-treesitter".install({
   "javascript",
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "c", "odin", "rs", },
+  pattern = { "c", "odin", "rs", "cs", },
   callback = function() vim.treesitter.start() end,
 })
 --
@@ -139,6 +139,8 @@ vim.pack.add({
   { src = gh("nvim-mini/mini.surround"),   branch = "main" }, -- surround commands
   { src = gh("nvim-mini/mini.pairs"),      branch = "main" }, -- autopair brackets
   { src = gh("nvim-mini/mini.hipatterns"), branch = "main" }, -- highlighting for colors, todo, fixme
+  { src = gh("nvim-mini/mini.snippets"),   branch = "main" }, -- snippet engine
+  { src = gh("nvim-mini/mini.completion"), branch = "main" }, -- completion engine
 })
 require "mini.icons".setup()
 require "mini.surround".setup()
@@ -151,6 +153,13 @@ hipatterns.setup({
     hex_color = hipatterns.gen_highlighter.hex_color(),
   },
 })
+require "mini.snippets".setup()
+require "mini.completion".setup()
+--
+
+
+-- completion 
+-- vim.keymap.set("i", "<C-return>", vim.lsp.completion.get)
 --
 
 
@@ -167,8 +176,15 @@ vim.lsp.config("lua_ls", { -- fixes vim globarl warnings
       diagnostics = { globals = { "vim" } },
       telemetry = { enable = "false" },
     },
-  },
+  }
 })
+
+vim.lsp.config("csharp-ls", {
+  cmd = { "csharp-ls" },
+  filetypes = { "cs" },
+  root_markers = { ".git" },
+})
+
 
 vim.lsp.enable({
   "lua_ls",
@@ -177,7 +193,7 @@ vim.lsp.enable({
   "ols",
   "rust_analyzer",
   "qmlls",
-  "csharp-language-server"
+  "csharp-ls"
 })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 --
@@ -200,6 +216,7 @@ require "rainbow-delimiters.setup".setup({
 -- markdowwn-plus
 vim.pack.add({ gh("YousefHadder/markdown-plus.nvim") })
 require "markdown-plus".setup()
+--
 
 
 -- harpoon
@@ -213,5 +230,3 @@ require "markdown-plus".setup()
 -- local harpoon = require "harpoon"
 -- harpoon:setup()
 --
-
-

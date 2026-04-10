@@ -1,7 +1,7 @@
 # vim bindings:
 bindkey -v
 # paru -S zsh-vi-mode
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $HOME/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # git
 autoload -Uz vcs_info
@@ -29,4 +29,6 @@ function mkcd() {
     mkdir $1 && cd $1
 }
 
-export PATH="$HOME/.local/bin:$HOME/.local/nvim/bin:$PATH"
+# PATH config
+export PATH="$HOME/.local/bin:$HOME/.local/nvim/bin:$PATH" # ~/.local/bin
+export PATH="$HOME/.dotnet/tools:$PATH"
