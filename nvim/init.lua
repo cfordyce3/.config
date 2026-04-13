@@ -6,7 +6,7 @@ vim.opt.colorcolumn = "100"
 vim.opt.signcolumn = "yes"
 
 vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = "wl-copy" -- make sure installed; change to xclip if on x11
+-- vim.g.clipboard = "wl-copy" -- ensure wl-copy and xclip are installed
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
