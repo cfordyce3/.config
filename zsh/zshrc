@@ -9,7 +9,8 @@ zstyle ':vcs_info:git*' formats " (%b)"
 precmd() { vcs_info }
 
 setopt prompt_subst
-PROMPT='%F{green}%3~%F{yellow}$vcs_info_msg_0_ %f%# '
+[ -n "$SSH" ] && PROMPT='%m:%F{green}%3~%F{yellow}$vcs_info_msg_0_ %f%# '
+[ -z "$SSH" ] && PROMPT='%F{green}%3~%F{yellow}$vcs_info_msg_0_ %f%# '
 
 # aliases
 alias sourcezsh="source ~/.zshrc"
@@ -21,7 +22,8 @@ alias grep="grep --color"
 alias cat="bat"
 
 alias nv="nvim"
-# alias nv="$HOME/appimages/nvim-nightly.appimage"
+
+alias ssh="env SSH=1 ssh" # for displaying host within ssh
 
 alias gpuusage="watch -n 1 nvidia-smi"
 
@@ -32,3 +34,4 @@ function mkcd() {
 # PATH config
 export PATH="$HOME/.local/bin:$HOME/.local/nvim/bin:$PATH" # ~/.local/bin
 export PATH="$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
