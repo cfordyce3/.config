@@ -191,6 +191,7 @@ vim.lsp.enable({
   "clangd",
   "pyright",
   "ols",
+  "zls",
   "rust_analyzer",
   "qmlls",
   "csharp-ls"
