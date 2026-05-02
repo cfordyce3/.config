@@ -187,6 +187,7 @@ vim.lsp.config("csharp-ls", {
 
 
 vim.lsp.enable({
+  "bashls",
   "lua_ls",
   "clangd",
   "pyright",

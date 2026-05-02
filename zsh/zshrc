@@ -23,8 +23,6 @@ alias cat="bat"
 
 alias nv="nvim"
 
-alias ssh="env SSH=1 ssh" # for displaying host within ssh
-
 alias gpuusage="watch -n 1 nvidia-smi"
 
 function mkcd() {
@@ -32,6 +30,8 @@ function mkcd() {
 }
 
 # PATH config
-export PATH="$HOME/.local/bin:$HOME/.local/nvim/bin:$PATH" # ~/.local/bin
-export PATH="$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/scripts/sysutils/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/.local/nvim/bin:$PATH"
